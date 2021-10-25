@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock title %}
+{% block content %}
+<main>
+    <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Welcome to Zorin International</h1>
+                <p class="lead text-muted">Something short and leading about the collection below—its contents, the
+                    creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it
+                    entirely.</p>
+                <p>
+                    <a href="#" class="btn btn-primary my-2">Main call to action</a>
+                    <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+                </p>
+            </div>
+        </div>
+    </section>
+</main>
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for product in products %}
+        <div class="col">
+            <div class="card shadow">
+                <img src="{{ product.image.url }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
+                        additional
+                        content. This content is a little bit longer.</p>
+                    <hr>
+                    <h6 class="card-text text-center">{{ product.price }}</h6>
+                    <hr>
+                    <a class="btn btn-info" href="#">Add to Cart</a>
+                    <a class="btn btn-primary" href="#">Details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

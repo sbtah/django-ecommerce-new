@@ -43,7 +43,7 @@ class Product(models.Model):
         ordering = ('-created',)
 
     def get_absolute_url(self):
-        return reverse('store:product-details', kwargs={'slug': self.slug, })
+        return reverse('store:product-detail', kwargs={'slug': self.slug, })
 
     def __str__(self):
         return self.name
