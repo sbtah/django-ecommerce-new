@@ -29,10 +29,10 @@
                         additional
                         content. This content is a little bit longer.</p>
                     <hr>
-                    <h6 class="card-text text-center">{{ product.price }}</h6>
+                    <h4 class="card-text text-center">{{ product.price }}</h4>
                     <hr>
                     <a class="btn btn-info" href="#">Add to Cart</a>
-                    <a class="btn btn-primary" href="#">Details</a>
+                    <a class="btn btn-primary" href="{{ product.get_absolute_url }}">Details</a>
                 </div>
             </div>
         </div>

@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Category, Product
 
 
+# This output categories objects to all templates via context manager in settings.
 def categories(request):
 
     return {
@@ -24,7 +25,7 @@ def all_products(request):
 
 def product_detail(request, slug):
 
-    product = Product.objects.get(slug=slug)
+    product = get_object_or_404(Product, slug=slug, is_active=True)
 
     return render(request, 'store/product_detail.html', {
 
