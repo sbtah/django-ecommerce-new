@@ -6,7 +6,8 @@ from .models import Category, Product
 def categories(request):
 
     return {
-        'categories': Category.objects.all()
+        'categories': Category.objects.all(),
+        'categories_number': Category.objects.all().count()
     }
 
 
@@ -30,5 +31,18 @@ def product_detail(request, slug):
     return render(request, 'store/product_detail.html', {
 
         'product': product,
+
+    })
+
+
+def category_list(request, slug):
+
+    category = get_object_or_404(Category, slug=slug)
+    products = Product.objects.filter(category=category)
+
+    return render(request, 'store/category_list.html', {
+
+        'category': category,
+        'products': products,
 
     })
