@@ -35,12 +35,12 @@ def product_detail(request, slug):
     })
 
 
-def category_list(request, slug):
+def category_detail(request, slug):
 
     category = get_object_or_404(Category, slug=slug)
     products = Product.objects.filter(category=category)
 
-    return render(request, 'store/category_list.html', {
+    return render(request, 'store/category_detail.html', {
 
         'category': category,
         'products': products,
