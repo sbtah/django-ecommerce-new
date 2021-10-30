@@ -25,14 +25,6 @@ class TestCategoryModel(TestCase):
         self.assertEqual(str(data), 'Suche Baseny')
         self.assertEqual(str(data.slug), 'suche-baseny')
 
-    # def test_absolute_url(self):
-    #     """
-    #     Test Category model get_default_url() method.
-    #     This will fail without urlconf configured.
-    #     """
-    #     data = self.data1
-    #     self.assertEqual(data.get_absolute_url(), '/category')
-
 
 class TestProductModel(TestCase):
 
