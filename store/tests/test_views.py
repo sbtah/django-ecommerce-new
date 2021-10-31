@@ -1,12 +1,10 @@
 from unittest import skip
-from django.http import request
 from django.http.response import HttpResponse
-from django.test import TestCase
+from django.test import TestCase, Client, RequestFactory
 from store.models import Category, Product
 from django.contrib.auth.models import User
-from django.test import Client
 from django.urls import reverse
-from store.views import all_products
+from store.views import all_products, product_detail
 
 
 class TestViewResponses(TestCase):
@@ -16,6 +14,7 @@ class TestViewResponses(TestCase):
         Setup of testing databse.
         """
         self.c = Client()
+        self.factory = RequestFactory()
         self.user_1 = User.objects.create(username='admin')
         self.category_1 = Category.objects.create(
             name='Suche Baseny', slug='suche-baseny')
@@ -45,11 +44,38 @@ class TestViewResponses(TestCase):
             reverse('store:category-detail', kwargs={'slug': "suche-baseny", }))
         self.assertEqual(response.status_code, 200)
 
+    # This tests a all_product function for title, doctype and status.
     def test_homepage_html(self):
         """
-        Tests a html with HttpRequest.
+        Tests a homepage with HttpRequest.
         """
         request = HttpResponse()
         response = all_products(request)
         html = response.content.decode('utf8')
-        print(html)
+        self.assertIn('<title>Zorin | Home</title>', html)
+        self.assertTrue(html.startswith('\n<!Doctype html>\n'))
+        self.assertEqual(response.status_code, 200)
+
+    # This tests a product_detail function for title, doctype and status.
+    def test_product_detail_view(self):
+        """
+        Test a product detail page with HttpRequests.
+        """
+        request = HttpResponse()
+        response = product_detail(request, slug='basen')
+        html = response.content.decode('utf8')
+        self.assertIn('<title>Zorin | Basen</title>', html)
+        self.assertTrue(html.startswith('\n<!Doctype html>\n'))
+        self.assertEqual(response.status_code, 200)
+
+    # Testing all_products view with Request Factory.
+    def test_view_function(self):
+        """
+        Tests a view with Request Factory.
+        """
+        request = self.factory.get('/product/basen')
+        response = all_products(request)
+        html = response.content.decode('utf8')
+        self.assertIn('<title>Zorin | Home</title>', html)
+        self.assertTrue(html.startswith('\n<!Doctype html>\n'))
+        self.assertEqual(response.status_code, 200)
