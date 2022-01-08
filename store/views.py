@@ -2,18 +2,10 @@ from django.shortcuts import render, get_object_or_404
 from .models import Category, Product
 
 
-# This output categories objects to all templates via context manager in settings.
-def categories(request):
+def product_list(request):
+    """Lists all active products from db and also counts them."""
 
-    return {
-        'categories': Category.objects.all(),
-        'categories_number': Category.objects.all().count()
-    }
-
-
-def all_products(request):
-
-    products = Product.objects.all()
+    products = Product.products.all()  # Use of custom model manager.
     number_of_products = products.count()
 
     return render(request, 'store/home.html',  {
@@ -25,6 +17,7 @@ def all_products(request):
 
 
 def product_detail(request, slug):
+    """Product detail view."""
 
     product = get_object_or_404(Product, slug=slug, is_active=True)
 
@@ -36,9 +29,11 @@ def product_detail(request, slug):
 
 
 def category_detail(request, slug):
+    """Category detail view with all related active products."""
 
     category = get_object_or_404(Category, slug=slug)
-    products = Product.objects.filter(category=category)
+    # This also uses custom model manager.
+    products = Product.products.filter(category=category)
 
     return render(request, 'store/category_detail.html', {
 

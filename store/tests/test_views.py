@@ -4,7 +4,7 @@ from django.test import TestCase, Client, RequestFactory
 from store.models import Category, Product
 from django.contrib.auth.models import User
 from django.urls import reverse
-from store.views import all_products, product_detail
+from store.views import product_list, product_detail
 
 
 class TestViewResponses(TestCase):
@@ -50,7 +50,7 @@ class TestViewResponses(TestCase):
         Tests a homepage with HttpRequest.
         """
         request = HttpResponse()
-        response = all_products(request)
+        response = product_list(request)
         html = response.content.decode('utf8')
         self.assertIn('<title>Zorin | Home</title>', html)
         self.assertTrue(html.startswith('\n<!Doctype html>\n'))
@@ -74,7 +74,7 @@ class TestViewResponses(TestCase):
         Tests a view with Request Factory.
         """
         request = self.factory.get('/product/basen')
-        response = all_products(request)
+        response = product_list(request)
         html = response.content.decode('utf8')
         self.assertIn('<title>Zorin | Home</title>', html)
         self.assertTrue(html.startswith('\n<!Doctype html>\n'))
