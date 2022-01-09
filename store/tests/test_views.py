@@ -1,4 +1,3 @@
-from unittest import skip
 from django.http.response import HttpResponse
 from django.test import TestCase, Client, RequestFactory
 from store.models import Category, Product
@@ -41,14 +40,13 @@ class TestViewResponses(TestCase):
         Test absolute url for category.
         """
         response = self.c.get(
-            reverse('store:category-detail', kwargs={'slug': "suche-baseny", }))
+            reverse('store:category-detail',
+                    kwargs={'slug': "suche-baseny", }))
         self.assertEqual(response.status_code, 200)
 
     # This tests a all_product function for title, doctype and status.
     def test_homepage_html(self):
-        """
-        Tests a homepage with HttpRequest.
-        """
+        """Tests a homepage with HttpRequest."""
         request = HttpResponse()
         response = product_list(request)
         html = response.content.decode('utf8')
@@ -68,11 +66,9 @@ class TestViewResponses(TestCase):
         self.assertTrue(html.startswith('\n<!Doctype html>\n'))
         self.assertEqual(response.status_code, 200)
 
-    # Testing all_products view with Request Factory.
-    def test_view_function(self):
-        """
-        Tests a view with Request Factory.
-        """
+    # Testing product-list view with Request Factory.
+    def test_product_list_view(self):
+        """Tests a product-list view with Request Factory."""
         request = self.factory.get('/product/basen')
         response = product_list(request)
         html = response.content.decode('utf8')

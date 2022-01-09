@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users',
     'store',
+    'basket',
 ]
 
 MIDDLEWARE = [
@@ -55,6 +56,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 # Custom context processor for displaying Categories.
                 'store.context_processors.categories',
+                # Custom context processor for basket.
+                'basket.context_processors.basket',
             ],
         },
     },

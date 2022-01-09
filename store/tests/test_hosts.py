@@ -12,3 +12,5 @@ class TestAllowedHosts(TestCase):
         self.assertEqual(response.status_code, 400)
         response = self.client.get('/', HTTP_HOST='yourdomain.com')
         self.assertEqual(response.status_code, 200)
+        response = self.client.get('/', HTTP_HOST='127.0.0.1')
+        self.assertEqual(response.status_code, 200)
