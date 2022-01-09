@@ -1,5 +1,8 @@
 
 
+import basket
+
+
 class Basket():
     """Basket class providing some necessary behaviors."""
 
@@ -9,3 +12,10 @@ class Basket():
         if 'skey' not in request.session:
             basket = self.session['skey'] = {}
         self.basket = basket
+
+    def add(self, product):
+        """Adding and updating user basket session data."""
+        product_id = str(product.id)
+        if product_id not in self.basket:
+            self.basket[product_id] = {'price': str(product.price)}
+        self.session.modified = True
